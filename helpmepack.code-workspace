@@ -1,0 +1,12 @@
+{
+  "folders": [
+    {
+      "path": ".",
+      "name": "helpmepack"
+    },
+    {
+      "path": "/app",
+      "name": "app"
+    }
+  ]
+}
