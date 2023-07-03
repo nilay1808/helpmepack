@@ -1,4 +1,4 @@
-import { cn } from "@shadcn-utils";
+import { cn } from '@shadcn-utils';
 
 type GradientFrom = `from-${string}-${number}`;
 type GradientTo = `to-${string}-${number}`;
@@ -10,19 +10,14 @@ interface GradientTextProps {
   className?: string;
 }
 
-export function GradientText({
-  text,
-  gradientStart,
-  gradientEnd,
-  className,
-}: GradientTextProps) {
+export function GradientText({ text, gradientStart, gradientEnd, className }: GradientTextProps) {
   return (
     <h1
       className={cn(
-        "text-transparent bg-clip-text bg-gradient-to-r",
+        'text-transparent bg-clip-text bg-gradient-to-r',
         gradientStart,
         gradientEnd,
-        className
+        className,
       )}
     >
       {text}

@@ -1,19 +1,12 @@
-import type { LinksFunction } from "@remix-run/node";
-import {
-  Links,
-  LiveReload,
-  Meta,
-  Outlet,
-  Scripts,
-  ScrollRestoration,
-} from "@remix-run/react";
+import type { LinksFunction } from '@remix-run/node';
+import { Links, LiveReload, Meta, Outlet, Scripts, ScrollRestoration } from '@remix-run/react';
 
-import stylesheet from "./tailwind.css";
-import { Navbar } from "./components/Navbar";
+import stylesheet from './tailwind.css';
+import { Navbar } from '@components/Navbar';
 
 export const links: LinksFunction = () => [
-  { rel: "stylesheet", href: stylesheet },
-  { rel: "icon", href: "/favicon.svg", type: "image/svg+xml" },
+  { rel: 'stylesheet', href: stylesheet },
+  { rel: 'icon', href: '/favicon.svg', type: 'image/svg+xml' },
 ];
 
 export default function App() {

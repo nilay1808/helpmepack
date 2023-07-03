@@ -1,21 +1,23 @@
 {
-  "include": ["remix.env.d.ts", "**/*.ts", "**/*.tsx"],
   "compilerOptions": {
-    "lib": ["DOM", "DOM.Iterable", "ES2019"],
-    "isolatedModules": true,
-    "esModuleInterop": true,
-    "jsx": "react-jsx",
-    "moduleResolution": "node",
-    "resolveJsonModule": true,
-    "target": "ES2019",
-    "strict": true,
     "allowJs": true,
-    "forceConsistentCasingInFileNames": true,
     "baseUrl": ".",
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "isolatedModules": true,
+    "jsx": "react-jsx",
+    "lib": ["DOM", "DOM.Iterable", "ES2019"],
+    "moduleResolution": "node",
+    "noEmit": true,
     "paths": {
-      "@shadcn": ["./app/components/"],
-      "@shadcn-utils": ["./app/lib/shadcnUtils.ts"]
+      "@shadcn-utils": ["./app/lib/shadcnUtils.ts"],
+      "@components/*": ["./app/components/*"]
     },
-    "noEmit": true
-  }
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "target": "ES2019"
+  },
+  "exclude": ["node_modules", ".cache", "build", "public/build"],
+  "include": ["remix.env.d.ts", "**/*.ts", "**/*.tsx"]
 }

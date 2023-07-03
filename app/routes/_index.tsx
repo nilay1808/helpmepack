@@ -1,11 +1,11 @@
-import type { V2_MetaFunction } from "@remix-run/node";
-import { GradientText } from "app/components/GradientText";
-import { Badge } from "app/components/ui/badge";
+import { GradientText } from '@components/GradientText';
+import { Badge } from '@components/ui/badge';
+import type { V2_MetaFunction } from '@remix-run/node';
 
 export const meta: V2_MetaFunction = () => {
   return [
-    { title: "Help me Pack" },
-    { name: "description", content: "GPT based trip packing assistant" },
+    { title: 'Help me Pack' },
+    { name: 'description', content: 'GPT based trip packing assistant' },
   ];
 };
 
@@ -27,13 +27,9 @@ function Introduction() {
         className="font-extrabold text-8xl text-center"
       />
       <h3 className="text-2xl m-8 text-center">
-        Seamless packing made easy: Introducing Help Me Pack - Your Tailored
-        Clothing Checklist.
+        Seamless packing made easy: Introducing Help Me Pack - Your Tailored Clothing Checklist.
       </h3>
-      <Badge
-        className="text-lg text-slate-500 border-slate-500"
-        variant="outline"
-      >
+      <Badge className="text-lg text-slate-500 border-slate-500" variant="outline">
         Coming Soon
       </Badge>
     </div>
