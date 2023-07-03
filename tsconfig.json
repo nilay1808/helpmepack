@@ -13,10 +13,9 @@
     "forceConsistentCasingInFileNames": true,
     "baseUrl": ".",
     "paths": {
-      "~/*": ["./app/*"]
+      "@shadcn": ["./app/components/"],
+      "@shadcn-utils": ["./app/lib/shadcnUtils.ts"]
     },
-
-    // Remix takes care of building everything in `remix build`.
     "noEmit": true
   }
 }
