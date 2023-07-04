@@ -1,5 +1,4 @@
 import { GradientText } from '@components/GradientText';
-import { TripPlanner } from '@components/TripPlanner';
 
 import { Badge } from '@components/ui/badge';
 import { redirect } from '@remix-run/node';
@@ -24,7 +23,6 @@ export default function Index() {
   return (
     <div className="flex flex-grow justify-center items-center flex-col">
       <Introduction />
-      <TripPlanner />
     </div>
   );
 }
