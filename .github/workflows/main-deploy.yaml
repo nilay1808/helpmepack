@@ -1,11 +1,12 @@
 name: Deploy
 on:
-  push:
-    branches:
-      - main
+  workflow_run:
+    workflows: ['CI']
+    types:
+      - completed
 jobs:
   deploy:
-    name: Deploy app on Fly.io
+    name: Deploy app to Production on Fly.io
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3

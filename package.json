@@ -5,9 +5,10 @@
     "build": "remix build",
     "deploy": "fly deploy --remote-only",
     "dev": "remix dev",
-    "prettier": "prettier --write .",
+    "format": "prettier --write .",
+    "check": "eslint . && prettier --check .",
     "start": "remix-serve build",
-    "typecheck": "tsc --watch"
+    "typecheck": "tsc"
   },
   "dependencies": {
     "@radix-ui/react-icons": "^1.3.0",
