@@ -1,6 +1,9 @@
 import { GradientText } from '@components/GradientText';
+import { TripPlanner } from '@components/TripPlanner';
+
 import { Badge } from '@components/ui/badge';
-import type { V2_MetaFunction } from '@remix-run/node';
+import { redirect } from '@remix-run/node';
+import type { ActionArgs, V2_MetaFunction } from '@remix-run/node';
 
 export const meta: V2_MetaFunction = () => {
   return [
@@ -9,17 +12,26 @@ export const meta: V2_MetaFunction = () => {
   ];
 };
 
+export async function action({ request }: ActionArgs) {
+  const body = await request.formData();
+
+  console.log(body.get('destination'));
+
+  return redirect('/');
+}
+
 export default function Index() {
   return (
     <div className="flex flex-grow justify-center items-center flex-col">
       <Introduction />
+      <TripPlanner />
     </div>
   );
 }
 
 function Introduction() {
   return (
-    <div className="flex flex-col justify-center items-center mt-36">
+    <div className="flex flex-col justify-center items-center my-36">
       <GradientText
         text="Help Me Pack"
         gradientStart="from-red-900"
