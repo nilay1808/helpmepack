@@ -6,8 +6,9 @@ import { json } from '@remix-run/node';
 import type { ActionArgs, V2_MetaFunction } from '@remix-run/node';
 import { useActionData } from '@remix-run/react';
 import { Weather } from 'app/server/weather.server';
-import { format, parse } from 'date-fns';
+import { parse } from 'date-fns';
 import { validationError } from 'remix-validated-form';
+import { utcToZonedTime, format as formatWithTimezone } from 'date-fns-tz';
 
 export const meta: V2_MetaFunction = () => {
   return [
@@ -89,7 +90,13 @@ function Introduction() {
                 .map((day) => (
                   <div className="mb-2" key={day.date}>
                     <h5 className="text-md font-medium">
-                      {format(new Date(day.date), 'MMMM dd, yyyy')}
+                      {formatWithTimezone(
+                        utcToZonedTime(day.date, data.forecastForTrip.location.tz_id),
+                        'MMMM dd, yyyy',
+                        {
+                          timeZone: data.forecastForTrip.location.tz_id,
+                        },
+                      )}
                     </h5>
                     <ul className="list-disc ml-4">
                       <li>Average Temperature: {day.avgTemperatureInCelcius}°C</li>

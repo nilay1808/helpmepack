@@ -3,13 +3,15 @@ import { ValidatedForm } from 'remix-validated-form';
 import { z } from 'zod';
 import { ValidatedInput } from './ValidatedInput';
 import { ValidatedSubmitButton } from './ValidatedSubmitButton';
-import { addDays, format, parse, startOfDay } from 'date-fns';
+import { addDays, format, formatISO, parse, startOfDay } from 'date-fns';
 
 const isValidDate = (dateString: string) => !isNaN(Date.parse(dateString));
 
 const isDateAfterToday = (dateString: string) => {
-  const date = parse(dateString, 'yyyy-MM-dd', new Date());
-  return date > startOfDay(new Date());
+  const normalizedDate = formatISO(parse(dateString, 'yyyy-MM-dd', new Date()));
+
+  // const date = parse(dateString, 'yyyy-MM-dd', new Date());
+  return normalizedDate > formatISO(startOfDay(new Date()));
 };
 
 const TripSchema = z
