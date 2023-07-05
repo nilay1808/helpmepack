@@ -54,8 +54,6 @@ export namespace Weather {
       }),
     );
 
-    console.log(forecastForAllDates);
-
     if (forecastForAllDates.length === 0) {
       throw new Error('Could not find forecast for given dates');
     }
@@ -76,8 +74,6 @@ export namespace Weather {
     date: string,
   ): Promise<ForecastForDayResponse> {
     const WEATHER_API_BASE_URL = `https://api.weatherapi.com/v1/forecast.json?key=${API_KEY}&q=${location}&days=10&aqi=no&alerts=n`;
-
-    console.log(WEATHER_API_BASE_URL);
 
     const response = await fetch(WEATHER_API_BASE_URL);
 
