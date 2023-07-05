@@ -1,11 +1,12 @@
-name: Fly Deploy
+name: Deploy
 on:
-  push:
-    branches:
-      - main
+  workflow_run:
+    workflows: ['CI']
+    types:
+      - completed
 jobs:
   deploy:
-    name: Deploy app
+    name: Deploy app to Production on Fly.io
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
