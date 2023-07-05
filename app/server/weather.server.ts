@@ -12,12 +12,14 @@ export namespace Weather {
 
   export interface ForecastForDate {
     date: string;
-    maxTemperatureInCelcius: number;
-    minTemperatureInCelcius: number;
-    avgTemperatureInCelcius: number;
-    maxWindInKph: number;
-    avgHumidity: number;
-    totalPrecipitationInMm: number;
+    stats?: {
+      maxTemperatureInCelcius: number;
+      minTemperatureInCelcius: number;
+      avgTemperatureInCelcius: number;
+      maxWindInKph: number;
+      avgHumidity: number;
+      totalPrecipitationInMm: number;
+    };
   }
 
   export interface ForecastForTripResponse {
@@ -27,7 +29,7 @@ export namespace Weather {
       country: string;
       tz_id: string;
     };
-    forecast: (ForecastForDate | undefined)[];
+    forecast: ForecastForDate[];
   }
 
   export async function getForecastForTrip(
@@ -46,22 +48,23 @@ export namespace Weather {
           if (differenceInDays(new Date(date), new Date()) < 9) {
             return await getForecastForUpcomingDay(location, date);
           }
-          return undefined;
+          return {
+            location: undefined,
+            forecast: { date, stats: undefined },
+          };
         } catch (error) {
           console.log(error);
-          return undefined;
+          return { location: undefined, forecast: { date, stats: undefined } };
         }
       }),
     );
-
-    console.log(forecastForAllDates);
 
     if (forecastForAllDates.length === 0) {
       throw new Error('Could not find forecast for given dates');
     }
 
     return {
-      location: forecastForAllDates.filter((forecast) => forecast != null).at(0)!.location,
+      location: forecastForAllDates.filter((forecast) => forecast != null).at(0)!.location!,
       forecast: forecastForAllDates.map((forecast) => forecast?.forecast),
     };
   }
@@ -76,8 +79,6 @@ export namespace Weather {
     date: string,
   ): Promise<ForecastForDayResponse> {
     const WEATHER_API_BASE_URL = `https://api.weatherapi.com/v1/forecast.json?key=${API_KEY}&q=${location}&days=10&aqi=no&alerts=n`;
-
-    console.log(WEATHER_API_BASE_URL);
 
     const response = await fetch(WEATHER_API_BASE_URL);
 
@@ -105,12 +106,14 @@ export namespace Weather {
       },
       forecast: {
         date: forecastForDate.date,
-        maxTemperatureInCelcius: forecastForDate.day.maxtemp_c,
-        minTemperatureInCelcius: forecastForDate.day.mintemp_c,
-        avgTemperatureInCelcius: forecastForDate.day.avgtemp_c,
-        maxWindInKph: forecastForDate.day.maxwind_kph,
-        avgHumidity: forecastForDate.day.avghumidity,
-        totalPrecipitationInMm: forecastForDate.day.totalprecip_mm,
+        stats: {
+          maxTemperatureInCelcius: forecastForDate.day.maxtemp_c,
+          minTemperatureInCelcius: forecastForDate.day.mintemp_c,
+          avgTemperatureInCelcius: forecastForDate.day.avgtemp_c,
+          maxWindInKph: forecastForDate.day.maxwind_kph,
+          avgHumidity: forecastForDate.day.avghumidity,
+          totalPrecipitationInMm: forecastForDate.day.totalprecip_mm,
+        },
       },
     };
   }
@@ -140,12 +143,14 @@ export namespace Weather {
       },
       forecast: {
         date: forecast.forecastday.at(0).date,
-        maxTemperatureInCelcius: forecast.forecastday.at(0).day.maxtemp_c,
-        minTemperatureInCelcius: forecast.forecastday.at(0).day.mintemp_c,
-        avgTemperatureInCelcius: forecast.forecastday.at(0).day.avgtemp_c,
-        maxWindInKph: forecast.forecastday.at(0).day.maxwind_kph,
-        avgHumidity: forecast.forecastday.at(0).day.avghumidity,
-        totalPrecipitationInMm: forecast.forecastday.at(0).day.totalprecip_mm,
+        stats: {
+          maxTemperatureInCelcius: forecast.forecastday.at(0).day.maxtemp_c,
+          minTemperatureInCelcius: forecast.forecastday.at(0).day.mintemp_c,
+          avgTemperatureInCelcius: forecast.forecastday.at(0).day.avgtemp_c,
+          maxWindInKph: forecast.forecastday.at(0).day.maxwind_kph,
+          avgHumidity: forecast.forecastday.at(0).day.avghumidity,
+          totalPrecipitationInMm: forecast.forecastday.at(0).day.totalprecip_mm,
+        },
       },
     };
   }
