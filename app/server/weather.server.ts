@@ -3,6 +3,13 @@ import { format, add, isBefore, isEqual, startOfDay, differenceInDays } from 'da
 const API_KEY = process.env.WEATHER_API_KEY;
 
 export namespace Weather {
+  export interface Location {
+    name: string;
+    region: string;
+    country: string;
+    tz_id: string;
+  }
+
   export interface ForecastForDate {
     date: string;
     maxTemperatureInCelcius: number;
@@ -18,6 +25,7 @@ export namespace Weather {
       name: string;
       region: string;
       country: string;
+      tz_id: string;
     };
     forecast: (ForecastForDate | undefined)[];
   }
@@ -59,20 +67,8 @@ export namespace Weather {
   }
 
   interface ForecastForDayResponse {
-    location: {
-      name: string;
-      region: string;
-      country: string;
-    };
-    forecast: {
-      date: string;
-      maxTemperatureInCelcius: number;
-      minTemperatureInCelcius: number;
-      avgTemperatureInCelcius: number;
-      maxWindInKph: number;
-      avgHumidity: number;
-      totalPrecipitationInMm: number;
-    };
+    location: Location;
+    forecast: ForecastForDate;
   }
 
   async function getForecastForUpcomingDay(
@@ -105,6 +101,7 @@ export namespace Weather {
         name: data.location.name,
         region: data.location.region,
         country: data.location.country,
+        tz_id: data.location.tz_id,
       },
       forecast: {
         date: forecastForDate.date,
@@ -139,6 +136,7 @@ export namespace Weather {
         name: locationData.name,
         region: locationData.region,
         country: locationData.country,
+        tz_id: data.location.tz_id,
       },
       forecast: {
         date: forecast.forecastday.at(0).date,
