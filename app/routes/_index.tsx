@@ -22,14 +22,14 @@ export async function action({ request }: ActionArgs) {
     return validationError(result.error);
   }
 
-  const { destination, from, to, timezone } = result.data;
+  const { destination, from, to } = result.data;
 
-  console.log(
-    `Destination: ${destination}\n
-    From: ${new Date(from).toLocaleDateString()}\n
-    To: ${new Date(to).toLocaleDateString()}\n
-    Timezone: ${timezone}`,
-  );
+  // console.log(
+  //   `Destination: ${destination}\n
+  //   From: ${new Date(from).toLocaleDateString()}\n
+  //   To: ${new Date(to).toLocaleDateString()}\n
+  //   Timezone: ${timezone}`,
+  // );
 
   const forecastForTrip = await Weather.getForecastForTrip(
     destination,
@@ -38,9 +38,17 @@ export async function action({ request }: ActionArgs) {
   );
 
   const weatherSummary = await Ai.summarizeWeatherForecast(forecastForTrip);
-  console.log(weatherSummary);
 
-  return json({ forecastForTrip, weatherSummary });
+  const packingList = await Ai.getPackingSuggestions(
+    `${forecastForTrip.location.name}, ${
+      forecastForTrip.location.region ?? forecastForTrip.location.country
+    }`,
+    from,
+    to,
+    weatherSummary,
+  );
+
+  return json({ forecastForTrip, weatherSummary, packingList });
 }
 
 export default function Index() {
@@ -54,7 +62,7 @@ export default function Index() {
 
 function Introduction() {
   return (
-    <div className="flex flex-col justify-center items-center mt-36 mb-18">
+    <div className="flex flex-col justify-center items-center mt-20 mb-10">
       <GradientText
         text="Help Me Pack"
         gradientStart="from-red-900"

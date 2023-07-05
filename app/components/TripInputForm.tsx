@@ -4,7 +4,7 @@ import { z } from 'zod';
 import { ValidatedInput } from './ValidatedInput';
 import { ValidatedSubmitButton } from './ValidatedSubmitButton';
 import { addDays, differenceInDays, format, isAfter, isEqual, parse, startOfDay } from 'date-fns';
-import { utcToZonedTime, zonedTimeToUtc, format as formatWithTimezone } from 'date-fns-tz';
+import { zonedTimeToUtc } from 'date-fns-tz';
 import { Card, CardHeader, CardTitle, CardContent } from './ui/card';
 import type { action } from 'app/routes/_index';
 import { useActionData } from '@remix-run/react';
@@ -80,7 +80,7 @@ export const TripInputForm = () => {
     <div className="flex justify-center flex-col items-center w-full">
       <Card className="w-full max-w-[650px] mt-12">
         <CardHeader>
-          <CardTitle className="text-2xl">Trip Input</CardTitle>
+          <CardTitle className="text-2xl">Where are you travelling?</CardTitle>
         </CardHeader>
         <CardContent>
           <ValidatedForm
@@ -104,61 +104,23 @@ export const TripInputForm = () => {
       </Card>
 
       {actionData && 'forecastForTrip' in actionData && (
-        <Card className="w-full max-w-[650px] mt-12">
+        <Card className="w-full max-w-[650px] my-12">
           <CardHeader>
-            <CardTitle className="text-2xl">Trip Forecast</CardTitle>
+            <CardTitle className="text-2xl">🕶️ Overview</CardTitle>
           </CardHeader>
           <CardContent>
+            {/* Weather Summary */}
             <h3 className="text-lg mb-2 font-medium">
-              {`📍 ${actionData.forecastForTrip.location.name}, ${
+              {`⛅ Weather in ${actionData.forecastForTrip.location.name}, ${
                 actionData.forecastForTrip.location.region ??
                 actionData.forecastForTrip.location.country
               }`}
             </h3>
+            {actionData.weatherSummary && <p>{actionData.weatherSummary}</p>}
 
-            {/* <pre>{actionData.weatherSummary?.content}</pre> */}
-
-            {/* {actionData.forecastForTrip.forecast.map((day) => {
-              if (!day.stats) {
-                return (
-                  <div className="mb-2" key={day.date}>
-                    <h5 className="text-md font-medium">
-                      {formatWithTimezone(
-                        utcToZonedTime(day.date, actionData.forecastForTrip.location.tz_id),
-                        'MMMM dd, yyyy',
-                        {
-                          timeZone: actionData.forecastForTrip.location.tz_id,
-                        },
-                      )}
-                    </h5>
-                    <p className="text-sm text-red-700 font-medium">Could not get forecast</p>
-                  </div>
-                );
-              }
-
-              return (
-                <div className="mb-2" key={day.date}>
-                  <h5 className="text-md font-medium">
-                    {formatWithTimezone(
-                      utcToZonedTime(day.date, actionData.forecastForTrip.location.tz_id),
-                      'MMMM dd, yyyy',
-                      {
-                        timeZone: actionData.forecastForTrip.location.tz_id,
-                      },
-                    )}
-                  </h5>
-                  <ul className="list-disc ml-4">
-                    <li>Average Temperature: {day.stats.avgTemperatureInCelcius}°C</li>
-                    <li>
-                      Temperature Range: {day.stats.minTemperatureInCelcius}°C -{' '}
-                      {day.stats.maxTemperatureInCelcius}°C
-                    </li>
-                    <li>Humidity: {day.stats.avgHumidity}</li>
-                    <li>Total Precipitation: {day.stats.totalPrecipitationInMm} mm</li>
-                  </ul>
-                </div>
-              );
-            })} */}
+            {/* Packing List */}
+            <h3 className="text-lg mb-2 mt-4 font-medium">🧳 Packing List</h3>
+            {actionData.packingList && <pre>{actionData.packingList}</pre>}
           </CardContent>
         </Card>
       )}
