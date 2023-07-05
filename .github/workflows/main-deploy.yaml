@@ -8,6 +8,7 @@ jobs:
   deploy:
     name: Deploy app to Production on Fly.io
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
       - uses: actions/checkout@v3
       - uses: superfly/flyctl-actions/setup-flyctl@master
