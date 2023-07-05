@@ -21,7 +21,7 @@ export const ValidatedInput = ({ name, label, type, defaultValue, className, val
       <Label className="text-md mb-2 font-normal text-small text-slate-600" htmlFor={name}>
         {label}
       </Label>
-      <Input {...getInputProps({ id: name, type })} defaultValue={defaultValue} value={value} />
+      <Input {...getInputProps({ id: name, type })} value={value} />
       {error && <span className="text-sm text-red-700 font-medium">{error}</span>}
     </div>
   );
