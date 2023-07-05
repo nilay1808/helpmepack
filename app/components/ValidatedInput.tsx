@@ -1,5 +1,6 @@
 import { useField } from 'remix-validated-form';
-import { Input, InputProps } from './ui/input';
+import type { InputProps } from './ui/input';
+import { Input } from './ui/input';
 import { Label } from './ui/label';
 import type { HTMLInputTypeAttribute } from 'react';
 
