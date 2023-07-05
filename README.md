@@ -2,6 +2,8 @@
 
 Help Me Pack is a GPT powered assistant that helps you pack for your next trip.
 
+Live Demo: [helpmepack.fly.dev](helpmepack.fly.dev)
+
 ## Getting Started
 
 1. Install [Node.js](https://nodejs.org/en/download/), [pnpm](https://pnpm.io/installation), and [Fly](https://fly.io/docs/getting-started/installing-flyctl/)
