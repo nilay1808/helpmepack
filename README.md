@@ -2,7 +2,7 @@
 
 Help Me Pack is a GPT powered assistant that helps you pack for your next trip.
 
-Live Demo: [helpmepack.fly.dev](helpmepack.fly.dev)
+Live Demo: [helpmepack.fly.dev](https://helpmepack.fly.dev)
 
 ## Getting Started
 
