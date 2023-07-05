@@ -3,6 +3,7 @@ import { TripInputForm, TripValidator } from '@components/TripInputForm';
 
 import { json } from '@remix-run/node';
 import type { ActionArgs, V2_MetaFunction } from '@remix-run/node';
+import { Ai } from 'app/server/openai.server';
 import { Weather } from 'app/server/weather.server';
 import { parse } from 'date-fns';
 import { validationError } from 'remix-validated-form';
@@ -36,7 +37,10 @@ export async function action({ request }: ActionArgs) {
     parse(to, 'yyyy-MM-dd', new Date()),
   );
 
-  return json({ forecastForTrip });
+  const weatherSummary = await Ai.summarizeWeatherForecast(forecastForTrip);
+  console.log(weatherSummary);
+
+  return json({ forecastForTrip, weatherSummary });
 }
 
 export default function Index() {

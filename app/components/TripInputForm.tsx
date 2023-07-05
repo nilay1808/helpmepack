@@ -116,7 +116,9 @@ export const TripInputForm = () => {
               }`}
             </h3>
 
-            {actionData.forecastForTrip.forecast.map((day) => {
+            {/* <pre>{actionData.weatherSummary?.content}</pre> */}
+
+            {/* {actionData.forecastForTrip.forecast.map((day) => {
               if (!day.stats) {
                 return (
                   <div className="mb-2" key={day.date}>
@@ -156,7 +158,7 @@ export const TripInputForm = () => {
                   </ul>
                 </div>
               );
-            })}
+            })} */}
           </CardContent>
         </Card>
       )}
